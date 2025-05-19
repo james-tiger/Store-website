@@ -1,0 +1,15 @@
+{% extends "store/base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h2>Welcome to Fourteen</h2>
+<p>Shop our latest collection for men and women.</p>
+
+<div style="display: flex; gap: 2rem; margin-top: 2rem;">
+    {% for category in categories %}
+    <div style="flex: 1; border: 1px solid #ccc; padding: 1rem; text-align: center;">
+        <h3>{{ category.name }}</h3>
+        <a href="{% url 'product_list' %}?category={{ category.name }}">View Products</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

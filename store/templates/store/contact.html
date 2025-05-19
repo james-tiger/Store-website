@@ -1,0 +1,18 @@
+{% extends "store/base.html" %}
+{% block title %}Contact Us{% endblock %}
+{% block content %}
+<h2>Contact Us</h2>
+<form method="post">
+    {% csrf_token %}
+    <label>Name:</label><br>
+    <input type="text" name="name"><br><br>
+    
+    <label>Email:</label><br>
+    <input type="email" name="email"><br><br>
+    
+    <label>Message:</label><br>
+    <textarea name="message"></textarea><br><br>
+    
+    <button type="submit">Send Message</button>
+</form>
+{% endblock %}

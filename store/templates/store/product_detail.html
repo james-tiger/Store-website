@@ -1,0 +1,33 @@
+<!-- store/templates/store/product_detail.html -->
+
+{% extends "store/base.html" %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+<h2>{{ product.name }}</h2>
+
+<!-- عرض الصورة الأولى كرئيسية -->
+{% if product.images.all %}
+    <img src="{{ product.images.all.0.image_url }}" alt="{{ product.name }}" width="300">
+{% else %}
+    <p>لا توجد صور لهذا المنتج</p>
+{% endif %}
+
+<p>{{ product.description }}</p>
+<p><strong>السعر:</strong> ${{ product.price }}</p>
+<p><strong>الجنس:</strong> {% if product.gender == 'M' %}ذكر{% else %}أنثى{% endif %}</p>
+<p><strong>الكمية المتوفرة:</strong> {{ product.quantity }}</p>
+
+<!-- عرض باقي الصور -->
+<div style="margin-top: 20px;">
+    <h3>صور أخرى:</h3>
+    <div style="display: flex; gap: 10px;">
+        {% for image in product.images.all %}
+            <img src="{{ image.image_url }}" alt="صورة إضافية" width="100">
+        {% empty %}
+            <p>لا توجد صور إضافية</p>
+        {% endfor %}
+    </div>
+</div>
+
+<a href="{% url 'add_to_cart' product.id %}">أضف للعربة</a>
+{% endblock %}

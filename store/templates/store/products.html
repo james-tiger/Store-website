@@ -1,0 +1,17 @@
+{% extends "store/base.html" %}
+{% block title %}Products{% endblock %}
+{% block content %}
+<h2>Our Products</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+    {% for product in products %}
+    <div style="border: 1px solid #ddd; padding: 1rem; text-align: center;">
+        <img src="{{ product.image_url }}" alt="{{ product.name }}" width="100%">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description|truncatewords:10 }}</p>
+        <p><strong>${{ product.price }}</strong></p>
+        <a href="{% url 'product_detail' product.id %}">View Details</a> |
+        <a href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Fourteen{% endblock %}</title>
+</head>
+<body>
+    <header style="padding: 1rem; background: #f8f8f8; text-align: center;">
+        <h1><a href="/" style="text-decoration: none; color: black;">FOURTEEN EVERYWHERE</a></h1>
+        <nav>
+            <a href="{% url 'product_list' %}">SHOP NOW</a> |
+            <a href="{% url 'view_cart' %}">CART ({{ request.session.cart|length }})</a> |
+            <a href="{% url 'contact' %}">CONTACT</a>
+        </nav>
+    </header>
+
+    <main style="padding: 1rem;">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer style="text-align: center; padding: 1rem; background: #eee; margin-top: 2rem;">
+        &copy; 2025 Fourteen Everywhere. All rights reserved.
+    </footer>
+</body>
+</html>
