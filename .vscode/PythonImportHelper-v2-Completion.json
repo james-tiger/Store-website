@@ -283,20 +283,20 @@
         "documentation": {}
     },
     {
-        "label": "get_wsgi_application",
-        "importPath": "django.core.wsgi",
-        "description": "django.core.wsgi",
-        "isExtraImport": true,
-        "detail": "django.core.wsgi",
-        "documentation": {}
-    },
-    {
         "label": "sys",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "sys",
         "description": "sys",
         "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "get_wsgi_application",
+        "importPath": "django.core.wsgi",
+        "description": "django.core.wsgi",
+        "isExtraImport": true,
+        "detail": "django.core.wsgi",
         "documentation": {}
     },
     {
@@ -610,7 +610,7 @@
         "kind": 5,
         "importPath": "website.settings",
         "description": "website.settings",
-        "peekOfCode": "SECRET_KEY = 'django-insecure-s#i57_=o7bnmqd@nmwpcq*i$g+v15my9n4l42ywz8cw=#r8srk'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = ['XtigerGmerX.pythonanywhere.com', '127.0.0.1', 'localhost']\n# Application definition\nINSTALLED_APPS = [\n    'unfold',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',",
+        "peekOfCode": "SECRET_KEY = 'django-insecure-s#i57_=o7bnmqd@nmwpcq*i$g+v15my9n4l42ywz8cw=#r8srk'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = ['XtigerGmerX.pythonanywhere.com', '127.0.0.1', 'localhost']\n# Application definition\nINSTALLED_APPS = [\n    'jazzmin',  # Add Jazzmin\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',",
         "detail": "website.settings",
         "documentation": {}
     },
@@ -619,7 +619,7 @@
         "kind": 5,
         "importPath": "website.settings",
         "description": "website.settings",
-        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = ['XtigerGmerX.pythonanywhere.com', '127.0.0.1', 'localhost']\n# Application definition\nINSTALLED_APPS = [\n    'unfold',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',",
+        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = ['XtigerGmerX.pythonanywhere.com', '127.0.0.1', 'localhost']\n# Application definition\nINSTALLED_APPS = [\n    'jazzmin',  # Add Jazzmin\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',",
         "detail": "website.settings",
         "documentation": {}
     },
@@ -628,7 +628,7 @@
         "kind": 5,
         "importPath": "website.settings",
         "description": "website.settings",
-        "peekOfCode": "ALLOWED_HOSTS = ['XtigerGmerX.pythonanywhere.com', '127.0.0.1', 'localhost']\n# Application definition\nINSTALLED_APPS = [\n    'unfold',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',",
+        "peekOfCode": "ALLOWED_HOSTS = ['XtigerGmerX.pythonanywhere.com', '127.0.0.1', 'localhost']\n# Application definition\nINSTALLED_APPS = [\n    'jazzmin',  # Add Jazzmin\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',",
         "detail": "website.settings",
         "documentation": {}
     },
@@ -637,7 +637,16 @@
         "kind": 5,
         "importPath": "website.settings",
         "description": "website.settings",
-        "peekOfCode": "INSTALLED_APPS = [\n    'unfold',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'store',\n]",
+        "peekOfCode": "INSTALLED_APPS = [\n    'jazzmin',  # Add Jazzmin\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'store',\n]",
+        "detail": "website.settings",
+        "documentation": {}
+    },
+    {
+        "label": "JAZZMIN_SETTINGS",
+        "kind": 5,
+        "importPath": "website.settings",
+        "description": "website.settings",
+        "peekOfCode": "JAZZMIN_SETTINGS = {\n    \"site_title\": \"Store Admin\",\n    \"site_header\": \"Store Administration\",\n    \"site_brand\": \"Store Admin\",\n    \"welcome_sign\": \"Welcome to the Store Admin Panel\",\n    \"show_ui_builder\": True,\n    \"navigation_expanded\": False,\n    \"theme\": \"dark\",\n}\nMIDDLEWARE = [",
         "detail": "website.settings",
         "documentation": {}
     },
@@ -864,6 +873,24 @@
         "description": "website.urls",
         "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('', include('store.urls')),\n] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)",
         "detail": "website.urls",
+        "documentation": {}
+    },
+    {
+        "label": "project_home",
+        "kind": 5,
+        "importPath": "website.wsgi",
+        "description": "website.wsgi",
+        "peekOfCode": "project_home = '/home/XtigerGmerX/Store_website'\nif project_home not in sys.path:\n    sys.path.insert(0, project_home)\n# set environment variable to tell django where your settings.py is\nos.environ['DJANGO_SETTINGS_MODULE'] = 'Store_website.settings'\n# serve django via WSGI\nfrom django.core.wsgi import get_wsgi_application\napplication = get_wsgi_application()",
+        "detail": "website.wsgi",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ['DJANGO_SETTINGS_MODULE']",
+        "kind": 5,
+        "importPath": "website.wsgi",
+        "description": "website.wsgi",
+        "peekOfCode": "os.environ['DJANGO_SETTINGS_MODULE'] = 'Store_website.settings'\n# serve django via WSGI\nfrom django.core.wsgi import get_wsgi_application\napplication = get_wsgi_application()",
+        "detail": "website.wsgi",
         "documentation": {}
     },
     {

@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['XtigerGmerX.pythonanywhere.com', '127.0.0.1', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
-    'unfold',
+    'jazzmin',  # Add Jazzmin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'store',
 ]
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Store Admin",
+    "site_header": "Store Administration",
+    "site_brand": "Store Admin",
+    "welcome_sign": "Welcome to the Store Admin Panel",
+    "show_ui_builder": True,
+    "navigation_expanded": False,
+    "theme": "dark",
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
