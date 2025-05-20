@@ -25,12 +25,13 @@ SECRET_KEY = 'django-insecure-s#i57_=o7bnmqd@nmwpcq*i$g+v15my9n4l42ywz8cw=#r8srk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['XtigerGmerX.pythonanywhere.com']
+ALLOWED_HOSTS = ['XtigerGmerX.pythonanywhere.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,4 +130,14 @@ MEDIA_ROOT = '/home/XtigerGmerX/website/media'
 MEDIA_URL = '/media/'
 STATIC_ROOT = '/home/XtigerGmerX/website/static'
 STATIC_URL = '/static/'
+
+# Email Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your_email@gmail.com'  # Replace with your actual Gmail
+EMAIL_HOST_PASSWORD = 'your_app_password'  # Replace with Gmail app password
+DEFAULT_FROM_EMAIL = 'your_email@gmail.com'  # Must match EMAIL_HOST_USER
+EMAIL_TIMEOUT = 10  # Add timeout to prevent hanging
 ###############

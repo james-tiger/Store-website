@@ -1,15 +1,166 @@
 {% extends "store/base.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Home | Swag{% endblock %}
 {% block content %}
-<h2>Welcome to Fourteen</h2>
-<p>Shop our latest collection for men and women.</p>
+<style>
+    .home-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        font-family: 'Arial', sans-serif;
+        padding: 0 20px;
+    }
+    
+    .hero-section {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 0 15px;
+    }
+    
+    .hero-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 1rem;
+        color: #000;
+    }
+    
+    .hero-subtitle {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        color: #666;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 2rem;
+    }
+    
+    .image-zoom-container {
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        height: 400px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    @media (min-width: 768px) {
+        .image-zoom-container {
+            height: 500px;
+        }
+    }
+    
+    .image-zoom-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1);
+        transition: transform 8s cubic-bezier(.25,.46,.45,.94);
+    }
+    
+    .image-zoom-container:hover img {
+        transform: scale(1.1);
+    }
+    
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2));
+        z-index: 1;
+    }
+    
+    .image-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        z-index: 2;
+        text-align: left;
+    }
+    
+    @media (min-width: 768px) {
+        .image-content {
+            padding: 30px;
+        }
+    }
+    
+    .shop-now-text {
+        color: white;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .category-title {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+        color: white;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    
+    .view-products-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: white;
+        color: black;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.8rem;
+    }
+    
+    @media (min-width: 768px) {
+        .view-products-btn {
+            padding: 12px 25px;
+            font-size: 0.9rem;
+        }
+    }
+    
+    .view-products-btn:hover {
+        background-color: #f0f0f0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+</style>
 
-<div style="display: flex; gap: 2rem; margin-top: 2rem;">
-    {% for category in categories %}
-    <div style="flex: 1; border: 1px solid #ccc; padding: 1rem; text-align: center;">
-        <h3>{{ category.name }}</h3>
-        <a href="{% url 'product_list' %}?category={{ category.name }}">View Products</a>
+<div class="home-container">
+    <div class="hero-section">
+        <h2 class="hero-title">Swag</h2>
+        <p class="hero-subtitle">Shop our latest collection for men and women.</p>
     </div>
-    {% endfor %}
+
+    <div class="categories-grid">
+        <!-- Men's Category -->
+        <div class="image-zoom-container">
+            <div class="image-overlay"></div>
+            <div class="image-content">
+                <p class="shop-now-text">SHOP NOW</p>
+                <h3 class="category-title">MEN</h3>
+                <a href="{% url 'product_list' %}?gender=M" class="view-products-btn">VIEW PRODUCTS</a>
+            </div>
+            <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWVuJTIwZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Men's Fashion">
+        </div>
+        
+        <!-- Women's Category -->
+        <div class="image-zoom-container">
+            <div class="image-overlay"></div>
+            <div class="image-content">
+                <p class="shop-now-text">SHOP NOW</p>
+                <h3 class="category-title">WOMEN</h3>
+                <a href="{% url 'product_list' %}?gender=F" class="view-products-btn">VIEW PRODUCTS</a>
+            </div>
+            <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8d29tZW4lMjBmYXNoaW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60" alt="Women's Fashion">
+        </div>
+    </div>
 </div>
 {% endblock %}
