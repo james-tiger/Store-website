@@ -1,0 +1,363 @@
+{% extends "store/base.html" %}
+{% block title %}معلومات الدفع | Swag{% endblock %}
+{% block content %}
+<div class="payment-container">
+    <nav class="product-navigation" aria-label="Payment Navigation">
+        <a href="/" class="nav-link">الرئيسية</a>
+        <span class="nav-separator">/</span>
+        <a href="{% url 'store:view_cart' %}" class="nav-link">السلة</a>
+        <span class="nav-separator">/</span>
+        <a href="{% url 'store:checkout' %}" class="nav-link">الشحن</a>
+        <span class="nav-separator">/</span>
+        <span class="current-page">الدفع</span>
+    </nav>
+
+    <div class="checkout-steps">
+        <div class="step" data-step="1">
+            <span class="step-number">1</span>
+            الشحن
+        </div>
+        <div class="step active" data-step="2">
+            <span class="step-number">2</span>
+            الدفع
+        </div>
+        <div class="step" data-step="3">
+            <span class="step-number">3</span>
+            التقييم
+        </div>
+    </div>
+
+    <div class="payment-details">
+        <h2 class="section-title">معلومات الدفع</h2>
+        
+        {% if payment_method == 'card' and not payment_info.is_card_enabled %}
+        <div class="payment-error-message">
+            <p>عذراً، الدفع بالبطاقة الائتمانية غير متاح حالياً. يرجى اختيار طريقة دفع أخرى.</p>
+            <a href="{% url 'store:checkout' %}" class="btn-change-payment">تغيير طريقة الدفع</a>
+        </div>
+        {% elif payment_method == 'instapay' and not payment_info.is_instapay_enabled %}
+        <div class="payment-error-message">
+            <p>عذراً، الدفع عبر إنستاباي غير متاح حالياً. يرجى اختيار طريقة دفع أخرى.</p>
+            <a href="{% url 'store:checkout' %}" class="btn-change-payment">تغيير طريقة الدفع</a>
+        </div>
+        {% elif payment_method == 'vodafone_cash' and not payment_info.is_vodafone_cash_enabled %}
+        <div class="payment-error-message">
+            <p>عذراً، الدفع عبر فودافون كاش غير متاح حالياً. يرجى اختيار طريقة دفع أخرى.</p>
+            <a href="{% url 'store:checkout' %}" class="btn-change-payment">تغيير طريقة الدفع</a>
+        </div>
+        {% elif payment_method == 'cod' and not payment_info.is_cod_enabled %}
+        <div class="payment-error-message">
+            <p>عذراً، الدفع عند الاستلام غير متاح حالياً. يرجى اختيار طريقة دفع أخرى.</p>
+            <a href="{% url 'store:checkout' %}" class="btn-change-payment">تغيير طريقة الدفع</a>
+        </div>
+        {% endif %}
+        
+        {% if payment_method == 'card' %}
+        <div class="payment-info-box">
+            <div class="payment-method-icon">
+                <img src="https://cdn.egyptcart.com/wp-content/uploads/2023/01/visa-logo.png" alt="Visa" height="40">
+                <img src="https://cdn.egyptcart.com/wp-content/uploads/2023/01/mastercard-logo.png" alt="Mastercard" height="40">
+            </div>
+            <div class="payment-instructions">
+                <h3>الدفع بالبطاقة الائتمانية</h3>
+                <p>يرجى استكمال عملية الدفع باستخدام بطاقتك الائتمانية من خلال الخطوات التالية:</p>
+                <ol>
+                    <li>أدخل بيانات البطاقة الائتمانية الخاصة بك</li>
+                    <li>تأكد من صحة البيانات المدخلة</li>
+                    <li>اضغط على زر "إتمام الدفع"</li>
+                </ol>
+                
+                <div class="card-payment-form">
+                    <form method="POST" action="{% url 'store:complete_payment' order.id %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="payment_method" value="card">
+                        
+                        <div class="form-group">
+                            <label for="card_number">رقم البطاقة</label>
+                            <input type="text" id="card_number" name="card_number" placeholder="XXXX XXXX XXXX XXXX" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiry_date">تاريخ الانتهاء</label>
+                                <input type="text" id="expiry_date" name="expiry_date" placeholder="MM/YY" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">رمز الأمان CVV</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="XXX" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="card_holder">اسم حامل البطاقة</label>
+                            <input type="text" id="card_holder" name="card_holder" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="payment_receipt">إيصال الدفع (اختياري)</label>
+                            <input type="file" id="payment_receipt" name="payment_receipt">
+                            <small>يمكنك رفع صورة للإيصال إذا كنت قد أتممت الدفع من خلال قنوات أخرى</small>
+                        </div>
+                        
+                        <button type="submit" class="payment-submit-btn">إتمام الدفع</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        {% elif payment_method == 'instapay' %}
+        <div class="payment-info-box">
+            <div class="payment-method-icon">
+                <img src="https://cdn.egyptcart.com/wp-content/uploads/2023/01/instapay-logo.png" alt="InstaPay" height="40">
+            </div>
+            <div class="payment-instructions">
+                <h3>الدفع عبر InstaPay</h3>
+                <p>يرجى اتباع الخطوات التالية لإتمام الدفع عبر InstaPay:</p>
+                <ol>
+                    <li>افتح تطبيق البنك الخاص بك المدعوم من InstaPay</li>
+                    <li>اختر خدمة الدفع عبر InstaPay</li>
+                    <li>أدخل رقم الهاتف التالي: <strong>{{ payment_info.instapay_number }}</strong></li>
+                    <li>أدخل المبلغ: <strong>{{ order.total_amount }} جنيه</strong></li>
+                    <li>أدخل رقم الطلب في الملاحظات: <strong>#{{ order.id }}</strong></li>
+                    <li>قم بتأكيد عملية الدفع</li>
+                </ol>
+                
+                <div class="receipt-upload-form">
+                    <form method="POST" action="{% url 'store:complete_payment' order.id %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="payment_method" value="instapay">
+                        
+                        <div class="form-group">
+                            <label for="transaction_id">رقم العملية (اختياري)</label>
+                            <input type="text" id="transaction_id" name="transaction_id" placeholder="أدخل رقم العملية إذا كان متاحًا">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="payment_receipt">إيصال الدفع</label>
+                            <input type="file" id="payment_receipt" name="payment_receipt" required>
+                            <small>يرجى رفع صورة لإيصال الدفع لتأكيد العملية</small>
+                        </div>
+                        
+                        <button type="submit" class="payment-submit-btn">تأكيد الدفع</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        {% elif payment_method == 'vodafone_cash' %}
+        <div class="payment-info-box">
+            <div class="payment-method-icon">
+                <img src="https://cdn.egyptcart.com/wp-content/uploads/2023/01/vodafone-cash-logo.png" alt="Vodafone Cash" height="40">
+            </div>
+            <div class="payment-instructions">
+                <h3>الدفع عبر فودافون كاش</h3>
+                <p>يرجى اتباع الخطوات التالية لإتمام الدفع عبر فودافون كاش:</p>
+                <ol>
+                    <li>افتح تطبيق فودافون كاش أو اطلب *9# من هاتفك</li>
+                    <li>اختر خدمة "دفع" أو "تحويل أموال"</li>
+                    <li>أدخل رقم الهاتف التالي: <strong>{{ payment_info.vodafone_number }}</strong></li>
+                    <li>أدخل المبلغ: <strong>{{ order.total_amount }} جنيه</strong></li>
+                    <li>أدخل رقم الطلب في الملاحظات: <strong>#{{ order.id }}</strong></li>
+                    <li>قم بتأكيد عملية الدفع</li>
+                </ol>
+                
+                <div class="receipt-upload-form">
+                    <form method="POST" action="{% url 'store:complete_payment' order.id %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="payment_method" value="vodafone_cash">
+                        
+                        <div class="form-group">
+                            <label for="sender_phone">رقم الهاتف المرسل منه</label>
+                            <input type="text" id="sender_phone" name="sender_phone" placeholder="01XXXXXXXXX" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="transaction_id">رقم العملية (اختياري)</label>
+                            <input type="text" id="transaction_id" name="transaction_id" placeholder="أدخل رقم العملية إذا كان متاحًا">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="payment_receipt">إيصال الدفع</label>
+                            <input type="file" id="payment_receipt" name="payment_receipt" required>
+                            <small>يرجى رفع صورة لإيصال الدفع لتأكيد العملية</small>
+                        </div>
+                        
+                        <button type="submit" class="payment-submit-btn">تأكيد الدفع</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="payment-info-box">
+            <div class="payment-error">
+                <p>طريقة الدفع غير معروفة. يرجى العودة واختيار طريقة دفع صحيحة.</p>
+                <a href="{% url 'store:checkout' %}" class="back-btn">العودة للخلف</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .payment-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .checkout-steps {
+        display: flex;
+        justify-content: space-between;
+        margin: 2rem 0;
+    }
+    
+    .step {
+        flex: 1;
+        text-align: center;
+        padding: 1rem;
+        position: relative;
+        color: #999;
+    }
+    
+    .step:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: #eee;
+        top: 50%;
+        left: 50%;
+        z-index: -1;
+    }
+    
+    .step.active {
+        color: #000;
+    }
+    
+    .step-number {
+        display: block;
+        width: 30px;
+        height: 30px;
+        background: #eee;
+        border-radius: 50%;
+        margin: 0 auto 0.5rem;
+        line-height: 30px;
+    }
+    
+    .step.active .step-number {
+        background: #000;
+        color: white;
+    }
+    
+    .payment-details {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .payment-info-box {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .payment-method-icon {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .payment-instructions h3 {
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+    }
+    
+    .payment-instructions ol {
+        margin-bottom: 20px;
+        padding-left: 20px;
+    }
+    
+    .payment-instructions li {
+        margin-bottom: 10px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-row {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+    
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+    .form-group small {
+        display: block;
+        margin-top: 5px;
+        color: #666;
+        font-size: 0.8rem;
+    }
+    
+    .payment-submit-btn {
+        background-color: #000;
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+        margin-top: 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .payment-submit-btn:hover {
+        background-color: #333;
+    }
+    
+    .back-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #f0f0f0;
+        color: #333;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 15px;
+    }
+    
+    @media (min-width: 768px) {
+        .payment-info-box {
+            flex-direction: row;
+        }
+        
+        .payment-method-icon {
+            flex-direction: column;
+            width: 100px;
+        }
+        
+        .payment-instructions {
+            flex: 1;
+        }
+    }
+</style>
+{% endblock %}
