@@ -132,7 +132,7 @@ class SectionAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'customer_name', 'customer_email', 'total_amount', 'status', 'payment_method', 'is_paid', 'payment_receipt', 'display_payment_receipt', 'created_at']
+    list_display = ['id', 'customer_name', 'customer_email', 'total_amount', 'status', 'payment_method', 'is_paid', 'display_payment_receipt', 'created_at']
     list_filter = ['status', 'payment_method', 'is_paid', 'created_at']
     search_fields = ['customer_name', 'customer_email', 'customer_phone']
     readonly_fields = ['created_at', 'updated_at', 'display_payment_receipt']
@@ -140,14 +140,20 @@ class OrderAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Customer Information', {'fields': ['customer_name', 'customer_email', 'customer_phone']}),
         ('Shipping Information', {'fields': ['shipping_address', 'order_notes']}),
-        ('Order Details', {'fields': ['total_amount', 'status', 'payment_method', 'is_paid', 'display_payment_receipt']}),
+        ('Order Details', {'fields': ['total_amount', 'status', 'payment_method', 'is_paid']}),
+        ('Payment Information', {'fields': ['payment_receipt', 'receipt_url', 'transaction_id', 'sender_phone', 'display_payment_receipt']}),
         ('Metadata', {'fields': ['created_at', 'updated_at'], 'classes': ['collapse']}),
     ]
     
     def display_payment_receipt(self, obj):
-        if obj.payment_receipt:
-            return format_html('<img src="{}" width="100" height="100" style="margin-right: 10px;" /><a href="{}" target="_blank">عرض الإيصال</a>', obj.payment_receipt.url, obj.payment_receipt.url)
-        return "لا يوجد إيصال"
+        try:
+            if obj.payment_receipt and hasattr(obj.payment_receipt, 'url'):
+                return format_html('<img src="{}" width="100" height="100" style="margin-right: 10px;" /><a href="{}" target="_blank">عرض الإيصال</a>', obj.payment_receipt.url, obj.payment_receipt.url)
+            elif obj.receipt_url:
+                return format_html('<a href="{}" target="_blank">عرض الإيصال</a>', obj.receipt_url)
+            return "لا يوجد إيصال"
+        except Exception as e:
+            return f"خطأ في عرض الإيصال: {str(e)}"
     display_payment_receipt.short_description = 'إيصال الدفع'
     
     inlines = [OrderItemInline]

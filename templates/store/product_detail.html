@@ -1,4 +1,5 @@
 {% extends "store/base.html" %}
+{% load static %}
 {% block title %}{{ product.name }} | Swag{% endblock %}
 {% block content %}
 {% csrf_token %}
@@ -102,10 +103,7 @@
                     <span class="attribute-label">Availability:</span>
                     <span class="attribute-value">{% if product.quantity > 0 %}{{ product.quantity }} in stock{% else %}Out of stock{% endif %}</span>
                 </div>
-                <div class="attribute">
-                    <span class="attribute-label">SKU:</span>
-                    <span class="attribute-value">{{ product.sku|default:"N/A" }}</span>
-                </div>
+
                 <div class="attribute">
                     <span class="attribute-label">Material:</span>
                     <span class="attribute-value">{{ product.material|default:"Cotton" }}</span>
@@ -166,11 +164,7 @@
                             </svg>
                         </span>
                     </button>
-                    <button class="wishlist-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                        </svg>
-                    </button>
+
                 {% else %}
                     <button class="add-to-cart-btn disabled" disabled>
                         <span class="btn-text">Out of Stock</span>
@@ -250,37 +244,109 @@
     
     <!-- Related products section -->
     <section class="related-products">
-        <h2 class="section-title">You May Also Like</h2>
+        <h2 class="section-title">منتجات قد تعجبك</h2>
         <div class="related-products-grid">
-            <!-- This would be populated with related products from your backend -->
-            <div class="related-product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x400" alt="Related product" loading="lazy">
-                </div>
-                <h3 class="product-name">Classic White Tee</h3>
-                <div class="product-price">LE 199.99</div>
-            </div>
-            <div class="related-product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x400" alt="Related product" loading="lazy">
-                </div>
-                <h3 class="product-name">Black Denim Jeans</h3>
-                <div class="product-price">LE 349.99</div>
-            </div>
-            <div class="related-product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x400" alt="Related product" loading="lazy">
-                </div>
-                <h3 class="product-name">Sporty Hoodie</h3>
-                <div class="product-price">LE 279.99</div>
-            </div>
-            <div class="related-product-card">
-                <div class="product-image">
-                    <img src="https://via.placeholder.com/300x400" alt="Related product" loading="lazy">
-                </div>
-                <h3 class="product-name">Casual Sneakers</h3>
-                <div class="product-price">LE 499.99</div>
-            </div>
+            {% if product.related_products.all %}
+                {% for related_product in product.related_products.all %}
+                    <div class="related-product-card">
+                        <a href="{% url 'store:product_detail' related_product.id %}" class="product-link">
+                            <div class="product-image">
+                                {% if related_product.images.all %}
+                                    {% if related_product.images.all.0.image %}
+                                        <img src="{{ related_product.images.all.0.image.url }}" alt="{{ related_product.name }}" loading="lazy">
+                                    {% else %}
+                                        <img src="{{ related_product.images.all.0.image_url }}" alt="{{ related_product.name }}" loading="lazy">
+                                    {% endif %}
+                                {% else %}
+                                    <img src="{% static 'store/images/no-image.svg' %}" alt="No image available" loading="lazy">
+                                {% endif %}
+                                {% if related_product.status == 'on_sale' and related_product.discount_price %}
+                                <div class="product-badge sale">خصم</div>
+                                {% elif related_product.status == 'new_arrival' %}
+                                <div class="product-badge new">جديد</div>
+                                {% endif %}
+                            </div>
+                            <h3 class="product-name">{{ related_product.name }}</h3>
+                            <div class="product-meta">
+                                <div class="product-price">
+                                    {% if related_product.discount_price %}
+                                    <span class="original-price">LE {{ related_product.price }}</span>
+                                    <span class="discount-price">LE {{ related_product.discount_price }}</span>
+                                    {% else %}
+                                    <span>LE {{ related_product.price }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="product-rating-mini">
+                                    <span class="stars-mini">
+                                        {% with ''|center:related_product.average_rating as range %}
+                                        {% for _ in range %}
+                                            <span class="star-mini filled">★</span>
+                                        {% endfor %}
+                                        {% endwith %}
+                                        {% if related_product.average_rating < 5 %}
+                                            {% with ''|center:5|slice:related_product.average_rating as empty_range %}
+                                            {% for _ in empty_range %}
+                                                <span class="star-mini">★</span>
+                                            {% endfor %}
+                                            {% endwith %}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% for related_product in similar_products %}
+                    <div class="related-product-card">
+                        <a href="{% url 'store:product_detail' related_product.id %}" class="product-link">
+                            <div class="product-image">
+                                {% if related_product.images.all %}
+                                    {% if related_product.images.all.0.image %}
+                                        <img src="{{ related_product.images.all.0.image.url }}" alt="{{ related_product.name }}" loading="lazy">
+                                    {% else %}
+                                        <img src="{{ related_product.images.all.0.image_url }}" alt="{{ related_product.name }}" loading="lazy">
+                                    {% endif %}
+                                {% else %}
+                                    <img src="{% static 'store/images/no-image.svg' %}" alt="No image available" loading="lazy">
+                                {% endif %}
+                                {% if related_product.status == 'on_sale' and related_product.discount_price %}
+                                <div class="product-badge sale">خصم</div>
+                                {% elif related_product.status == 'new_arrival' %}
+                                <div class="product-badge new">جديد</div>
+                                {% endif %}
+                            </div>
+                            <h3 class="product-name">{{ related_product.name }}</h3>
+                            <div class="product-meta">
+                                <div class="product-price">
+                                    {% if related_product.discount_price %}
+                                    <span class="original-price">LE {{ related_product.price }}</span>
+                                    <span class="discount-price">LE {{ related_product.discount_price }}</span>
+                                    {% else %}
+                                    <span>LE {{ related_product.price }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="product-rating-mini">
+                                    <span class="stars-mini">
+                                        {% with ''|center:related_product.average_rating as range %}
+                                        {% for _ in range %}
+                                            <span class="star-mini filled">★</span>
+                                        {% endfor %}
+                                        {% endwith %}
+                                        {% if related_product.average_rating < 5 %}
+                                            {% with ''|center:5|slice:related_product.average_rating as empty_range %}
+                                            {% for _ in empty_range %}
+                                                <span class="star-mini">★</span>
+                                            {% endfor %}
+                                            {% endwith %}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </section>
 </div>
@@ -288,8 +354,8 @@
 <style>
     :root {
         --primary-color: #000000;
-        --primary-hover: #2a0880;
-        --secondary-color: #f72585;
+        --primary-hover: rgb(113, 106, 106);
+        --secondary-color: #000000;
         --text-color: #333;
         --text-light: #666;
         --text-lighter: #999;
@@ -988,10 +1054,22 @@
         text-decoration: none;
         color: inherit;
         transition: var(--transition);
+        background-color: white;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        position: relative;
     }
 
     .related-product-card:hover {
         transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .related-product-card .product-link {
+        text-decoration: none;
+        color: var(--text-color);
+        display: block;
     }
 
     .related-product-card .product-image {
@@ -1003,6 +1081,7 @@
         justify-content: center;
         margin-bottom: 12px;
         overflow: hidden;
+        position: relative;
     }
 
     .related-product-card .product-image img {
@@ -1020,12 +1099,73 @@
         font-size: 0.95rem;
         font-weight: 500;
         margin-bottom: 4px;
+        padding: 0 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
+    .related-product-card .product-meta {
+        padding: 0 10px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
     .related-product-card .product-price {
         font-size: 0.95rem;
         font-weight: 600;
         color: var(--primary-color);
+    }
+    
+    .related-product-card .original-price {
+        text-decoration: line-through;
+        color: var(--text-lighter);
+        font-size: 0.8rem;
+        margin-right: 5px;
+    }
+    
+    .related-product-card .discount-price {
+        color: var(--error-color);
+        font-weight: 600;
+    }
+    
+    .product-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 4px 8px;
+        border-radius: var(--radius-sm);
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: white;
+        z-index: 1;
+    }
+    
+    .product-badge.sale {
+        background-color: var(--error-color);
+    }
+    
+    .product-badge.new {
+        background-color: var(--success-color);
+    }
+    
+    .product-rating-mini {
+        display: flex;
+        align-items: center;
+    }
+    
+    .stars-mini {
+        display: inline-flex;
+        font-size: 0.7rem;
+    }
+    
+    .star-mini {
+        color: var(--text-lighter);
+    }
+    
+    .star-mini.filled {
+        color: var(--warning-color);
     }
 
     /* Animations */

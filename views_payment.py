@@ -57,12 +57,11 @@ def complete_payment(request, order_id):
         # معالجة رفع إيصال الدفع إذا تم تقديمه
         if 'payment_receipt' in request.FILES:
             receipt = request.FILES['payment_receipt']
-            fs = FileSystemStorage(location='media/receipts/')
-            filename = fs.save(f"receipt_{order.id}_{receipt.name}", receipt)
-            receipt_url = fs.url(filename)
-            
-            # تخزين مسار الإيصال في نموذج الطلب
-            order.receipt_url = receipt_url
+            # استخدام حقل payment_receipt مباشرة بدلاً من FileSystemStorage المخصص
+            # هذا سيضمن أن Django يتعامل مع الملف بشكل صحيح ويحفظه في المسار المحدد في نموذج Order
+            order.payment_receipt = receipt
+            # حفظ رابط الإيصال أيضًا للاستخدام المستقبلي إذا لزم الأمر
+            order.receipt_url = f"/media/payment_receipts/receipt_{order.id}_{receipt.name}"
         
         # حفظ معلومات إضافية حسب طريقة الدفع
         if payment_method == 'card':
@@ -77,7 +76,7 @@ def complete_payment(request, order_id):
             # حفظ رقم العملية
             order.transaction_id = transaction_id
             # تعيين حالة الدفع بناءً على وجود إيصال
-            order.is_paid = bool(order.receipt_url)
+            order.is_paid = bool(order.payment_receipt)
         elif payment_method == 'vodafone_cash':
             sender_phone = request.POST.get('sender_phone')
             transaction_id = request.POST.get('transaction_id')
@@ -85,13 +84,20 @@ def complete_payment(request, order_id):
             order.sender_phone = sender_phone
             order.transaction_id = transaction_id
             # تعيين حالة الدفع بناءً على وجود إيصال
-            order.is_paid = bool(order.receipt_url)
+            order.is_paid = bool(order.payment_receipt)
         elif payment_method == 'cod':
             # الدفع عند الاستلام، لا يتم تعيين حالة الدفع كمدفوع
             order.is_paid = False
         
-        # تحديث حالة الطلب
-        if order.is_paid:
+        # تحديث حالة الطلب والدفع بناءً على وجود إيصال
+        if payment_method in ['instapay', 'vodafone_cash']:
+            # إذا كان هناك إيصال دفع، نعتبر الطلب مدفوعًا
+            if order.payment_receipt:
+                order.is_paid = True
+                order.status = 'processing'
+        
+        # تحديث حالة الطلب للطرق الأخرى
+        elif order.is_paid:
             order.status = 'processing'
         
         order.save()

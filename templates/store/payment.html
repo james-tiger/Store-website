@@ -1,54 +1,46 @@
 {% extends "store/base.html" %}
-{% block title %}معلومات الدفع | Swag{% endblock %}
+{% block title %}Payment Information | Swag{% endblock %}
 {% block content %}
 <div class="payment-container">
-    <nav class="product-navigation" aria-label="Payment Navigation">
-        <a href="/" class="nav-link">الرئيسية</a>
-        <span class="nav-separator">/</span>
-        <a href="{% url 'store:view_cart' %}" class="nav-link">السلة</a>
-        <span class="nav-separator">/</span>
-        <a href="{% url 'store:checkout' %}" class="nav-link">الشحن</a>
-        <span class="nav-separator">/</span>
-        <span class="current-page">الدفع</span>
-    </nav>
+
 
     <div class="checkout-steps">
         <div class="step" data-step="1">
             <span class="step-number">1</span>
-            الشحن
+            Shipping
         </div>
         <div class="step active" data-step="2">
             <span class="step-number">2</span>
-            الدفع
+            Payment
         </div>
         <div class="step" data-step="3">
             <span class="step-number">3</span>
-            التقييم
+            Review
         </div>
     </div>
 
     <div class="payment-details">
-        <h2 class="section-title">معلومات الدفع</h2>
+        <h2 class="section-title">Payment Information</h2>
         
         {% if payment_method == 'card' and not payment_info.is_card_enabled %}
         <div class="payment-error-message">
-            <p>عذراً، الدفع بالبطاقة الائتمانية غير متاح حالياً. يرجى اختيار طريقة دفع أخرى.</p>
-            <a href="{% url 'store:checkout' %}" class="btn-change-payment">تغيير طريقة الدفع</a>
+            <p>Sorry, card payment is currently unavailable. Please choose another payment method.</p>
+            <a href="{% url 'store:checkout' %}" class="btn-change-payment">Change Payment Method</a>
         </div>
         {% elif payment_method == 'instapay' and not payment_info.is_instapay_enabled %}
         <div class="payment-error-message">
-            <p>عذراً، الدفع عبر إنستاباي غير متاح حالياً. يرجى اختيار طريقة دفع أخرى.</p>
-            <a href="{% url 'store:checkout' %}" class="btn-change-payment">تغيير طريقة الدفع</a>
+            <p>Sorry, InstaPay payment is currently unavailable. Please choose another payment method.</p>
+            <a href="{% url 'store:checkout' %}" class="btn-change-payment">Change Payment Method</a>
         </div>
         {% elif payment_method == 'vodafone_cash' and not payment_info.is_vodafone_cash_enabled %}
         <div class="payment-error-message">
-            <p>عذراً، الدفع عبر فودافون كاش غير متاح حالياً. يرجى اختيار طريقة دفع أخرى.</p>
-            <a href="{% url 'store:checkout' %}" class="btn-change-payment">تغيير طريقة الدفع</a>
+            <p>Sorry, Vodafone Cash payment is currently unavailable. Please choose another payment method.</p>
+            <a href="{% url 'store:checkout' %}" class="btn-change-payment">Change Payment Method</a>
         </div>
         {% elif payment_method == 'cod' and not payment_info.is_cod_enabled %}
         <div class="payment-error-message">
-            <p>عذراً، الدفع عند الاستلام غير متاح حالياً. يرجى اختيار طريقة دفع أخرى.</p>
-            <a href="{% url 'store:checkout' %}" class="btn-change-payment">تغيير طريقة الدفع</a>
+            <p>Sorry, Cash on Delivery is currently unavailable. Please choose another payment method.</p>
+            <a href="{% url 'store:checkout' %}" class="btn-change-payment">Change Payment Method</a>
         </div>
         {% endif %}
         
@@ -59,12 +51,12 @@
                 <img src="https://cdn.egyptcart.com/wp-content/uploads/2023/01/mastercard-logo.png" alt="Mastercard" height="40">
             </div>
             <div class="payment-instructions">
-                <h3>الدفع بالبطاقة الائتمانية</h3>
-                <p>يرجى استكمال عملية الدفع باستخدام بطاقتك الائتمانية من خلال الخطوات التالية:</p>
+                <h3>Pay with Credit Card</h3>
+                <p>Please complete the payment using your credit card by following these steps:</p>
                 <ol>
-                    <li>أدخل بيانات البطاقة الائتمانية الخاصة بك</li>
-                    <li>تأكد من صحة البيانات المدخلة</li>
-                    <li>اضغط على زر "إتمام الدفع"</li>
+                    <li>Enter your credit card details</li>
+                    <li>Verify the entered data</li>
+                    <li>Click "Complete Payment"</li>
                 </ol>
                 
                 <div class="card-payment-form">
@@ -73,33 +65,33 @@
                         <input type="hidden" name="payment_method" value="card">
                         
                         <div class="form-group">
-                            <label for="card_number">رقم البطاقة</label>
+                            <label for="card_number">Card Number</label>
                             <input type="text" id="card_number" name="card_number" placeholder="XXXX XXXX XXXX XXXX" required>
                         </div>
                         
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="expiry_date">تاريخ الانتهاء</label>
+                                <label for="expiry_date">Expiry Date</label>
                                 <input type="text" id="expiry_date" name="expiry_date" placeholder="MM/YY" required>
                             </div>
                             <div class="form-group">
-                                <label for="cvv">رمز الأمان CVV</label>
+                                <label for="cvv">CVV</label>
                                 <input type="text" id="cvv" name="cvv" placeholder="XXX" required>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="card_holder">اسم حامل البطاقة</label>
+                            <label for="card_holder">Cardholder Name</label>
                             <input type="text" id="card_holder" name="card_holder" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="payment_receipt">إيصال الدفع (اختياري)</label>
+                            <label for="payment_receipt">Payment Receipt (Optional)</label>
                             <input type="file" id="payment_receipt" name="payment_receipt">
-                            <small>يمكنك رفع صورة للإيصال إذا كنت قد أتممت الدفع من خلال قنوات أخرى</small>
+                            <small>You may upload a receipt if you paid through other channels</small>
                         </div>
                         
-                        <button type="submit" class="payment-submit-btn">إتمام الدفع</button>
+                        <button type="submit" class="payment-submit-btn">Complete Payment</button>
                     </form>
                 </div>
             </div>
@@ -111,15 +103,15 @@
                 <img src="https://cdn.egyptcart.com/wp-content/uploads/2023/01/instapay-logo.png" alt="InstaPay" height="40">
             </div>
             <div class="payment-instructions">
-                <h3>الدفع عبر InstaPay</h3>
-                <p>يرجى اتباع الخطوات التالية لإتمام الدفع عبر InstaPay:</p>
+                <h3>Pay via InstaPay</h3>
+                <p>Please follow the steps below to pay via InstaPay:</p>
                 <ol>
-                    <li>افتح تطبيق البنك الخاص بك المدعوم من InstaPay</li>
-                    <li>اختر خدمة الدفع عبر InstaPay</li>
-                    <li>أدخل رقم الهاتف التالي: <strong>{{ payment_info.instapay_number }}</strong></li>
-                    <li>أدخل المبلغ: <strong>{{ order.total_amount }} جنيه</strong></li>
-                    <li>أدخل رقم الطلب في الملاحظات: <strong>#{{ order.id }}</strong></li>
-                    <li>قم بتأكيد عملية الدفع</li>
+                    <li>Open your bank's app that supports InstaPay</li>
+                    <li>Select InstaPay payment service</li>
+                    <li>Enter the phone number: <strong>{{ payment_info.instapay_number }}</strong></li>
+                    <li>Enter the amount: <strong>{{ order.total_amount }} EGP</strong></li>
+                    <li>Enter the order number in notes: <strong>#{{ order.id }}</strong></li>
+                    <li>Confirm the payment</li>
                 </ol>
                 
                 <div class="receipt-upload-form">
@@ -128,17 +120,17 @@
                         <input type="hidden" name="payment_method" value="instapay">
                         
                         <div class="form-group">
-                            <label for="transaction_id">رقم العملية (اختياري)</label>
-                            <input type="text" id="transaction_id" name="transaction_id" placeholder="أدخل رقم العملية إذا كان متاحًا">
+                            <label for="transaction_id">Transaction ID (Optional)</label>
+                            <input type="text" id="transaction_id" name="transaction_id" placeholder="Enter transaction ID if available">
                         </div>
                         
                         <div class="form-group">
-                            <label for="payment_receipt">إيصال الدفع</label>
+                            <label for="payment_receipt">Payment Receipt</label>
                             <input type="file" id="payment_receipt" name="payment_receipt" required>
-                            <small>يرجى رفع صورة لإيصال الدفع لتأكيد العملية</small>
+                            <small>Please upload a payment receipt to confirm the transaction</small>
                         </div>
                         
-                        <button type="submit" class="payment-submit-btn">تأكيد الدفع</button>
+                        <button type="submit" class="payment-submit-btn">Confirm Payment</button>
                     </form>
                 </div>
             </div>
@@ -150,15 +142,15 @@
                 <img src="https://cdn.egyptcart.com/wp-content/uploads/2023/01/vodafone-cash-logo.png" alt="Vodafone Cash" height="40">
             </div>
             <div class="payment-instructions">
-                <h3>الدفع عبر فودافون كاش</h3>
-                <p>يرجى اتباع الخطوات التالية لإتمام الدفع عبر فودافون كاش:</p>
+                <h3>Pay via Vodafone Cash</h3>
+                <p>Please follow the steps below to pay via Vodafone Cash:</p>
                 <ol>
-                    <li>افتح تطبيق فودافون كاش أو اطلب *9# من هاتفك</li>
-                    <li>اختر خدمة "دفع" أو "تحويل أموال"</li>
-                    <li>أدخل رقم الهاتف التالي: <strong>{{ payment_info.vodafone_number }}</strong></li>
-                    <li>أدخل المبلغ: <strong>{{ order.total_amount }} جنيه</strong></li>
-                    <li>أدخل رقم الطلب في الملاحظات: <strong>#{{ order.id }}</strong></li>
-                    <li>قم بتأكيد عملية الدفع</li>
+                    <li>Open Vodafone Cash app or dial *9# from your phone</li>
+                    <li>Select "Payment" or "Money Transfer"</li>
+                    <li>Enter this phone number: <strong>{{ payment_info.vodafone_number }}</strong></li>
+                    <li>Enter the amount: <strong>{{ order.total_amount }} EGP</strong></li>
+                    <li>Enter the order number in notes: <strong>#{{ order.id }}</strong></li>
+                    <li>Confirm the payment</li>
                 </ol>
                 
                 <div class="receipt-upload-form">
@@ -167,22 +159,22 @@
                         <input type="hidden" name="payment_method" value="vodafone_cash">
                         
                         <div class="form-group">
-                            <label for="sender_phone">رقم الهاتف المرسل منه</label>
+                            <label for="sender_phone">Sender Phone Number</label>
                             <input type="text" id="sender_phone" name="sender_phone" placeholder="01XXXXXXXXX" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="transaction_id">رقم العملية (اختياري)</label>
-                            <input type="text" id="transaction_id" name="transaction_id" placeholder="أدخل رقم العملية إذا كان متاحًا">
+                            <label for="transaction_id">Transaction ID (Optional)</label>
+                            <input type="text" id="transaction_id" name="transaction_id" placeholder="Enter transaction ID if available">
                         </div>
                         
                         <div class="form-group">
-                            <label for="payment_receipt">إيصال الدفع</label>
+                            <label for="payment_receipt">Payment Receipt</label>
                             <input type="file" id="payment_receipt" name="payment_receipt" required>
-                            <small>يرجى رفع صورة لإيصال الدفع لتأكيد العملية</small>
+                            <small>Please upload a payment receipt to confirm the transaction</small>
                         </div>
                         
-                        <button type="submit" class="payment-submit-btn">تأكيد الدفع</button>
+                        <button type="submit" class="payment-submit-btn">Confirm Payment</button>
                     </form>
                 </div>
             </div>
@@ -190,14 +182,13 @@
         {% else %}
         <div class="payment-info-box">
             <div class="payment-error">
-                <p>طريقة الدفع غير معروفة. يرجى العودة واختيار طريقة دفع صحيحة.</p>
-                <a href="{% url 'store:checkout' %}" class="back-btn">العودة للخلف</a>
+                <p>Unknown payment method. Please go back and select a valid method.</p>
+                <a href="{% url 'store:checkout' %}" class="back-btn">Go Back</a>
             </div>
         </div>
         {% endif %}
     </div>
 </div>
-
 <style>
     .payment-container {
         max-width: 1000px;
@@ -360,4 +351,6 @@
         }
     }
 </style>
+<!-- CSS unchanged from your original -->
+
 {% endblock %}

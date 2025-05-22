@@ -73,7 +73,32 @@ def product_list(request):
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    return render(request, 'store/product_detail.html', {'product': product})
+    
+    # الحصول على المنتجات المشابهة من نفس الفئة إذا لم تكن هناك منتجات مرتبطة محددة
+    if product.related_products.exists():
+        # إذا كانت هناك منتجات مرتبطة محددة، فسنستخدمها
+        similar_products = product.related_products.all()
+    else:
+        # البحث عن منتجات مشابهة بناءً على الفئة والجنس والعلامات
+        similar_products = Product.objects.filter(category=product.category, gender=product.gender)
+        
+        # استبعاد المنتج الحالي
+        similar_products = similar_products.exclude(id=product.id)
+        
+        # إذا كان للمنتج علامات، نحاول العثور على منتجات بنفس العلامات
+        if product.tags.exists():
+            # الحصول على منتجات لها نفس العلامات
+            tagged_products = Product.objects.filter(tags__in=product.tags.all()).exclude(id=product.id).distinct()
+            
+            # دمج النتائج مع إزالة التكرار
+            similar_products = (similar_products | tagged_products).distinct()[:6]
+        else:
+            similar_products = similar_products[:6]
+    
+    return render(request, 'store/product_detail.html', {
+        'product': product,
+        'similar_products': similar_products
+    })
 
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
