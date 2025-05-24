@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Swag{% endblock %}</title>
+    <style>
+        :root {
+            --primary-color: #000;
+            --text-color: #333;
+            --text-light: #555;
+            --text-lighter: #666;
+            --border-color: #e7e7e7;
+            --background-color: #f9f9f9;
+            --white: #fff;
+            --shadow-small: 0 2px 10px rgba(0,0,0,0.05);
+            --shadow-medium: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-large: 0 8px 20px rgba(0,0,0,0.15);
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --drawer-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+            --container-max-width: 1200px;
+            --header-height: 60px;
+            --font-main: 'Arial', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header styles */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow-small);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            height: var(--header-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .header-actions a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            transition: all var(--transition-normal);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-actions a:hover {
+            color: var(--primary-color);
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        /* Main navigation */
+        .main-nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .main-menu {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-item > a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            transition: color var(--transition-normal);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            gap: 0.5rem;
+        }
+
+        .menu-item > a:hover,
+        .menu-item > a:focus {
+            color: var(--primary-color);
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            box-shadow: var(--shadow-medium);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all var(--transition-normal);
+            z-index: 100;
+            border-radius: 4px;
+            padding: 0.75rem 0;
+        }
+
+        .menu-item:hover .dropdown,
+        .menu-item:focus-within .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 0.6rem 1.5rem;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: all var(--transition-fast);
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .dropdown a:hover,
+        .dropdown a:focus {
+            background: var(--background-color);
+            color: var(--primary-color);
+        }
+
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            padding: 0.5rem;
+            transition: color var(--transition-normal);
+        }
+
+        .mobile-menu-toggle:hover,
+        .mobile-menu-toggle:focus {
+            color: var(--primary-color);
+        }
+
+        /* Sidebar/Drawer Menu */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.5s var(--drawer-transition-timing), visibility 0.5s var(--drawer-transition-timing);
+        }
+
+        .drawer-overlay[aria-hidden="false"] {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .drawer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+            width: 80%;
+            max-width: 350px;
+            height: 100vh;
+            z-index: 1000;
+            background: var(--white);
+            transform: translateX(-100%);
+            transition: transform 0.5s var(--drawer-transition-timing), visibility 0.5s var(--drawer-transition-timing);
+            overflow-y: auto;
+            box-shadow: var(--shadow-large);
+        }
+
+        .drawer[aria-hidden="false"] {
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .drawer-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .drawer-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            transition: color var(--transition-normal);
+        }
+
+        .drawer-close:hover,
+        .drawer-close:focus {
+            color: var(--primary-color);
+        }
+
+        .drawer-content {
+            padding: 1.25rem;
+        }
+
+        .drawer-nav {
+            margin-bottom: 2rem;
+        }
+
+        .drawer-nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .drawer-nav a {
+            display: block;
+            padding: 0.75rem 0;
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: color var(--transition-normal);
+        }
+
+        .drawer-nav a:hover,
+        .drawer-nav a:focus {
+            color: var(--primary-color);
+        }
+
+        /* Main content area */
+        main {
+            flex: 1;
+            padding: 2rem 1rem;
+        }
+
+        /* Footer styles */
+        footer {
+            background: var(--white);
+            margin-top: 3rem;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.03);
+            padding: 3rem 1rem;
+        }
+
+        .footer-container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-menu {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .footer-menu li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-menu a {
+            text-decoration: none;
+            color: var(--text-lighter);
+            transition: color var(--transition-normal);
+        }
+
+        .footer-menu a:hover,
+        .footer-menu a:focus {
+            color: var(--primary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: var(--text-lighter);
+            transition: color var(--transition-normal);
+        }
+
+        .social-icons a:hover,
+        .social-icons a:focus {
+            color: var(--primary-color);
+        }
+
+        .newsletter-text {
+            margin-bottom: 1.5rem;
+            color: var(--text-lighter);
+            font-size: 0.9rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .newsletter-input {
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .newsletter-button {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color var(--transition-normal);
+        }
+
+        .newsletter-button:hover,
+        .newsletter-button:focus {
+            background-color: #333;
+        }
+
+        .footer-bottom {
+            max-width: var(--container-max-width);
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-lighter);
+            font-size: 0.8rem;
+        }
+
+        .footer-copyright {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 991px) {
+            .menu-item > a {
+                padding: 0.9rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .header-top {
+                padding: 0.75rem 1rem;
+            }
+            
+            header h1 a {
+                font-size: 1.5rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (min-width: 769px) {
+            .mobile-menu-toggle {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .header-top {
+                padding: 0.6rem 0.8rem;
+            }
+            
+            header h1 a {
+                font-size: 1.3rem;
+            }
+            
+            .drawer {
+                width: 85%;
+            }
+            
+            .footer-section h3 {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Drawer Overlay -->
+    <div id="drawer-overlay" class="drawer-overlay" aria-hidden="true"></div>
+    
+    <!-- Drawer/Sidebar Menu -->
+    <aside id="drawer-menu" class="drawer" aria-hidden="true" tabindex="-1">
+        <div class="drawer-header">
+            <h2 class="drawer-title">Menu</h2>
+            <button class="drawer-close" data-action="close-drawer" aria-label="Close navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="drawer-content">
+            <nav class="drawer-nav" aria-label="Mobile navigation">
+                <div class="drawer-nav-item">
+                    <a href="/">Home</a>
+                </div>
+                <div class="drawer-nav-item">
+                    <a href="{% url 'store:product_list' %}?gender=M">Men</a>
+                </div>
+                <div class="drawer-nav-item">
+                    <a href="{% url 'store:product_list' %}?gender=F">Women</a>
+                </div>
+                <div class="drawer-nav-item">
+                    <a href="/size-chart">Size Chart</a>
+                </div>
+                <div class="drawer-nav-item">
+                    <a href="/policy">Policy</a>
+                </div>
+                <div class="drawer-nav-item">
+                    <a href="{% url 'store:contact' %}">Contact</a>
+                </div>
+                <div class="drawer-nav-item">
+                    <a href="/care-instructions">Care Instructions</a>
+                </div>
+                <div class="drawer-nav-item">
+                </div>
+            </nav>
+            
+            <div class="social-icons">
+                <a href="#" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <a href="#" aria-label="TikTok">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm10-9v5a3 3 0 0 1-3 3h-5v5a5 5 0 0 1-10 0v-5a5 5 0 0 1 5-5h5V1h5a3 3 0 0 1 3 3z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <header>
+        <div class="header-top">
+            <div class="logo">
+                <button class="mobile-menu-toggle" data-action="open-drawer" aria-label="Open menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <h1><a href="/">SWAG</a></h1>
+            </div>
+            <div class="header-actions">
+                <a href="{% url 'store:view_cart' %}" class="cart-icon" aria-label="View cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count">{{ request.session.cart|length }}</span>
+                </a>
+            </div>
+        </div>
+        
+        <nav class="main-nav">
+            <ul class="main-menu">
+                <li class="menu-item">
+                    <a href="/">Home</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        Products
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </a>
+                    <div class="dropdown">
+                        <a href="{% url 'store:product_list' %}?gender=M">MEN</a>
+                        <a href="{% url 'store:product_list' %}?gender=F">WOMEN</a>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="/size-chart">Size Chart</a>
+                </li>
+                <li class="menu-item">
+                    <a href="/policy">Policy</a>
+                </li>
+                <li class="menu-item">
+                    <a href="{% url 'store:contact' %}">Contact</a>
+                </li>
+                <li class="menu-item">
+                    <a href="/care-instructions">Care Instructions</a>
+                </li>
+                <li class="menu-item">
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <!-- Footer Left: Menu and Social Icons -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-menu">
+                    <li><a href="/">Search</a></li>
+                    <li><a href="/policy">Policy</a></li>
+                    <li><a href="/size-chart">Size Chart</a></li>
+                    <li><a href="/care-instructions">Care Instructions</a></li>
+                    <li><a href="{% url 'store:contact' %}">Contact</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="TikTok">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm10-9v5a3 3 0 0 1-3 3h-5v5a5 5 0 0 1-10 0v-5a5 5 0 0 1 5-5h5V1h5a3 3 0 0 1 3 3z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Footer Right: Contact & Social -->
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="contact-info">
+                    <p class="contact-detail">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        Swag.eg2025@gmail.com
+                    </p>
+                    <p class="contact-detail">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        (212) 555-0192
+                    </p>
+                </div>
+                <div class="social-icons">
+                    <a href="https://instagram.com/swag" target="_blank" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="https://tiktok.com/@swag" target="_blank" aria-label="TikTok">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 7.34c-.78.35-1.59.58-2.42.6a4.28 4.28 0 0 0 1.95-2.37c-.83.5-1.75.85-2.72 1.05a4.25 4.25 0 0 0-7.23 3.89 12 12 0 0 1-8.7-4.4 4.25 4.25 0 0 0 1.32 5.67 4.23 4.23 0 0 1-1.92-.53v.05a4.25 4.25 0 0 0 3.4 4.16 4.3 4.3 0 0 1-1.92.07 4.25 4.25 0 0 0 3.96 2.95 8.53 8.53 0 0 1-5.3 1.82 8 8 0 0 1-1-.06 12 12 0 0 0 6.5 1.91c7.8 0 12.06-6.46 12.06-12.06v-.55c.82-.6 1.54-1.34 2.11-2.18z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <style>
+            .contact-info {
+                margin-bottom: 1.5rem;
+            }
+            
+            .contact-detail {
+                display: flex;
+                align-items: center;
+                color: var(--text-lighter);
+                margin-bottom: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .contact-detail svg {
+                flex-shrink: 0;
+            }
+            
+            .social-icons {
+                justify-content: flex-start;
+                margin-top: 1.5rem;
+            }
+        </style>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">&copy; SWAG</p>
+            <p>Developed By <a href="https://t.me/James_RE23" target="_blank">@SWAG</a></p>
+
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to set window height variable
+            function setWindowHeight() {
+                document.documentElement.style.setProperty('--window-height', window.innerHeight + 'px');
+            }
+            
+            // Set initial window height
+            setWindowHeight();
+            
+            // Update window height on resize
+            window.addEventListener('resize', setWindowHeight);
+            
+            // Get drawer elements
+            const overlay = document.getElementById('drawer-overlay');
+            const drawer = document.getElementById('drawer-menu');
+            
+            // Handle opening drawer
+            const openButtons = document.querySelectorAll('[data-action="open-drawer"]');
+            openButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    drawer.setAttribute('aria-hidden', 'false');
+                    overlay.setAttribute('aria-hidden', 'false');
+                    document.body.style.overflow = 'hidden'; // Prevent body scrolling
+                });
+            });
+            
+            // Handle closing drawer
+            const closeButtons = document.querySelectorAll('[data-action="close-drawer"]');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    drawer.setAttribute('aria-hidden', 'true');
+                    overlay.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = ''; // Restore body scrolling
+                });
+            });
+            
+            // Close drawer when clicking on overlay
+            overlay.addEventListener('click', function() {
+                drawer.setAttribute('aria-hidden', 'true');
+                overlay.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = ''; // Restore body scrolling
+            });
+            
+            // Close drawer when pressing escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && drawer.getAttribute('aria-hidden') === 'false') {
+                    drawer.setAttribute('aria-hidden', 'true');
+                    overlay.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = ''; // Restore body scrolling
+                }
+            });
+            
+            // Handle dropdown menu accessibility for keyboard users
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                const link = item.querySelector('a');
+                const dropdown = item.querySelector('.dropdown');
+                
+                if (dropdown) {
+                    link.setAttribute('aria-expanded', 'false');
+                    link.setAttribute('aria-haspopup', 'true');
+                    
+                    link.addEventListener('focus', function() {
+                        this.setAttribute('aria-expanded', 'true');
+                    });
+                    
+                    item.addEventListener('blur', function(e) {
+                        // Only close if focus moves outside of this menu item
+                        if (!item.contains(e.relatedTarget)) {
+                            link.setAttribute('aria-expanded', 'false');
+                        }
+                    }, true);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

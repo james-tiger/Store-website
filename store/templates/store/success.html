@@ -1,0 +1,79 @@
+{% extends "store/base.html" %}
+{% block title %}Order Confirmed | Swag{% endblock %}
+{% block content %}
+<div class="product-detail-container animate-fade-in">
+    <nav class="product-navigation" aria-label="Success Navigation">
+        <a href="/" class="nav-link">Home</a>
+        <span class="nav-separator">/</span>
+        <span class="current-page">Order Confirmation</span>
+    </nav>
+
+    <div class="confirmation-box">
+        <div class="checkmark-icon">
+            <svg viewBox="0 0 24 24" width="64" height="64">
+                <path fill="#2ecc71" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+        </div>
+        <h1 class="confirmation-title">Order Placed Successfully!</h1>
+        <div class="order-details">
+            <p>Order ID: <strong>#{{ order.id }}</strong></p>
+            <p>Total Amount: <strong>LE {{ order.total_amount }}</strong></p>
+            <p>Estimated Delivery: <strong>3-5 business days</strong></p>
+        </div>
+        <div class="action-buttons">
+            <a href="#" onclick="history.back(); return false;" class="continue-shopping-btn">Continue Shopping</a>
+        </div>
+    </div>
+</div>
+
+<style>
+.confirmation-box {
+    text-align: center;
+    padding: 40px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    margin: 40px auto;
+    max-width: 600px;
+}
+
+.checkmark-icon {
+    margin: 20px auto;
+    animation: checkmarkScale 0.6s ease-in-out;
+}
+
+.confirmation-title {
+    color: #2ecc71;
+    margin: 20px 0;
+    font-size: 2.2rem;
+}
+
+.order-details {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 30px 0;
+    text-align: left;
+}
+
+.continue-shopping-btn {
+    display: inline-block;
+    padding: 16px 40px;
+    background: #3498db;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.continue-shopping-btn:hover {
+    transform: translateY(-2px);
+}
+
+@keyframes checkmarkScale {
+    0% { transform: scale(0); }
+    80% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+</style>
+{% endblock %}

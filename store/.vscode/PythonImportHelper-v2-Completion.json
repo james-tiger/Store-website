@@ -1,0 +1,508 @@
+[
+    {
+        "label": "django.db.models.deletion",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.db.models.deletion",
+        "description": "django.db.models.deletion",
+        "detail": "django.db.models.deletion",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "slugify",
+        "importPath": "django.utils.text",
+        "description": "django.utils.text",
+        "isExtraImport": true,
+        "detail": "django.utils.text",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "smtplib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "smtplib",
+        "description": "smtplib",
+        "detail": "smtplib",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "send_mail",
+        "importPath": "django.core.mail",
+        "description": "django.core.mail",
+        "isExtraImport": true,
+        "detail": "django.core.mail",
+        "documentation": {}
+    },
+    {
+        "label": "DetailView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "get_object_or_404",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "migrations.0001_initial",
+        "description": "migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Category',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('name', models.CharField(max_length=100, verbose_name='Category Name')),",
+        "detail": "migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "migrations.0002_add_slug_to_category",
+        "description": "migrations.0002_add_slug_to_category",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0001_initial'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='category',\n            name='slug',\n            field=models.SlugField(max_length=120, unique=True, blank=True),\n        ),",
+        "detail": "migrations.0002_add_slug_to_category",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "migrations.0003_section_alter_category_slug",
+        "description": "migrations.0003_section_alter_category_slug",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0002_add_slug_to_category'),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Section',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('name', models.CharField(max_length=100, verbose_name='Section Name')),",
+        "detail": "migrations.0003_section_alter_category_slug",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "migrations.0004_product_section",
+        "description": "migrations.0004_product_section",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0003_section_alter_category_slug'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='product',\n            name='section',\n            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='store.section', verbose_name='Section'),\n        ),",
+        "detail": "migrations.0004_product_section",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "migrations.0005_product_average_rating_product_rating",
+        "description": "migrations.0005_product_average_rating_product_rating",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0004_product_section'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='product',\n            name='average_rating',\n            field=models.DecimalField(decimal_places=2, default=0.0, max_digits=3, verbose_name='Average Rating'),\n        ),",
+        "detail": "migrations.0005_product_average_rating_product_rating",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "migrations.0006_productimage_image_alter_productimage_image_url",
+        "description": "migrations.0006_productimage_image_alter_productimage_image_url",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('store', '0005_product_average_rating_product_rating'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='productimage',\n            name='image',\n            field=models.ImageField(blank=True, null=True, upload_to='product_images/', verbose_name='Image File'),\n        ),",
+        "detail": "migrations.0006_productimage_image_alter_productimage_image_url",
+        "documentation": {}
+    },
+    {
+        "label": "ProductImageInline",
+        "kind": 6,
+        "importPath": "admin",
+        "description": "admin",
+        "peekOfCode": "class ProductImageInline(admin.TabularInline):\n    model = ProductImage\n    extra = 1\n    verbose_name = \"Product Image\"\n    verbose_name_plural = \"Product Images\"\n    fields = ('image', 'image_url', 'alt_text', 'is_primary')\n    def get_formset(self, request, obj=None, **kwargs):\n        formset = super().get_formset(request, obj, **kwargs)\n        formset.form.base_fields['image_url'].required = False\n        formset.form.base_fields['image'].required = False",
+        "detail": "admin",
+        "documentation": {}
+    },
+    {
+        "label": "CategoryAdmin",
+        "kind": 6,
+        "importPath": "admin",
+        "description": "admin",
+        "peekOfCode": "class CategoryAdmin(admin.ModelAdmin):\n    list_display = ['name']\n    search_fields = ['name']\n    ordering = ['name']\n@admin.register(Product)\nclass ProductAdmin(admin.ModelAdmin):\n    list_display = ['name', 'price', 'discount_price', 'gender', 'category', 'section', 'quantity', 'status', 'is_featured', 'created_at']\n    list_filter = ['category', 'gender', 'status', 'is_featured', 'created_at', 'section']\n    search_fields = ['name', 'description']\n    list_editable = ['price', 'discount_price', 'quantity', 'status', 'is_featured']",
+        "detail": "admin",
+        "documentation": {}
+    },
+    {
+        "label": "ProductAdmin",
+        "kind": 6,
+        "importPath": "admin",
+        "description": "admin",
+        "peekOfCode": "class ProductAdmin(admin.ModelAdmin):\n    list_display = ['name', 'price', 'discount_price', 'gender', 'category', 'section', 'quantity', 'status', 'is_featured', 'created_at']\n    list_filter = ['category', 'gender', 'status', 'is_featured', 'created_at', 'section']\n    search_fields = ['name', 'description']\n    list_editable = ['price', 'discount_price', 'quantity', 'status', 'is_featured']\n    readonly_fields = ['created_at', 'updated_at']\n    def get_queryset(self, request):\n        qs = super().get_queryset(request)\n        gender = request.GET.get('gender', None)\n        if gender:",
+        "detail": "admin",
+        "documentation": {}
+    },
+    {
+        "label": "OrderItemInline",
+        "kind": 6,
+        "importPath": "admin",
+        "description": "admin",
+        "peekOfCode": "class OrderItemInline(admin.TabularInline):\n    model = OrderItem\n    extra = 0\n    readonly_fields = ['product', 'quantity', 'price', 'subtotal']\n    can_delete = False\n    def subtotal(self, obj):\n        if obj.price is None:\n            return 0\n        return obj.price * obj.quantity\n    subtotal.short_description = 'Subtotal'",
+        "detail": "admin",
+        "documentation": {}
+    },
+    {
+        "label": "SectionAdmin",
+        "kind": 6,
+        "importPath": "admin",
+        "description": "admin",
+        "peekOfCode": "class SectionAdmin(admin.ModelAdmin):\n    list_display = ['name', 'slug', 'is_active', 'created_at']\n    list_filter = ['is_active', 'created_at']\n    search_fields = ['name', 'slug']\n    list_editable = ['is_active']\n    prepopulated_fields = {'slug': ('name',)}\n    readonly_fields = ['created_at', 'updated_at']\n    fieldsets = [\n        ('Basic Information', {'fields': ['name', 'slug']}),\n        ('Status', {'fields': ['is_active']}),",
+        "detail": "admin",
+        "documentation": {}
+    },
+    {
+        "label": "OrderAdmin",
+        "kind": 6,
+        "importPath": "admin",
+        "description": "admin",
+        "peekOfCode": "class OrderAdmin(admin.ModelAdmin):\n    list_display = ['id', 'customer_name', 'customer_email', 'total_amount', 'status', 'payment_method', 'is_paid', 'created_at']\n    list_filter = ['status', 'payment_method', 'is_paid', 'created_at']\n    search_fields = ['customer_name', 'customer_email', 'customer_phone']\n    readonly_fields = ['created_at', 'updated_at']\n    list_editable = ['status', 'is_paid']\n    fieldsets = [\n        ('Customer Information', {'fields': ['customer_name', 'customer_email', 'customer_phone']}),\n        ('Shipping Information', {'fields': ['shipping_address', 'order_notes']}),\n        ('Order Details', {'fields': ['total_amount', 'status', 'payment_method', 'is_paid']}),",
+        "detail": "admin",
+        "documentation": {}
+    },
+    {
+        "label": "StoreConfig",
+        "kind": 6,
+        "importPath": "apps",
+        "description": "apps",
+        "peekOfCode": "class StoreConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'store'",
+        "detail": "apps",
+        "documentation": {}
+    },
+    {
+        "label": "Category",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Category(models.Model):\n    name = models.CharField(max_length=100, verbose_name=\"Category Name\")\n    slug = models.SlugField(max_length=100, unique=True, blank=True)\n    description = models.TextField(blank=True, null=True, verbose_name=\"Description\")\n    is_active = models.BooleanField(default=True, verbose_name=\"Active\")\n    created_at = models.DateTimeField(auto_now_add=True)\n    updated_at = models.DateTimeField(auto_now=True)\n    class Meta:\n        verbose_name = \"Category\"\n        verbose_name_plural = \"Categories\"",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Section",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Section(models.Model):\n    name = models.CharField(max_length=100, verbose_name=\"Section Name\")\n    slug = models.SlugField(max_length=100, unique=True, blank=True)\n    is_active = models.BooleanField(default=True, verbose_name=\"Active\")\n    created_at = models.DateTimeField(auto_now_add=True)\n    updated_at = models.DateTimeField(auto_now=True)\n    class Meta:\n        verbose_name = \"Section\"\n        verbose_name_plural = \"Sections\"\n        ordering = ['name']",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Product",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Product(models.Model):\n    GENDER_CHOICES = (\n        ('M', 'Male'),\n        ('F', 'Female'),\n        ('U', 'Unisex'),\n    )\n    GENDER_FILTER_CHOICES = (\n        ('M', 'Men\\'s Collection'),\n        ('F', 'Women\\'s Collection'),\n        ('U', 'Unisex Collection'),",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "ProductImage",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class ProductImage(models.Model):\n    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')\n    image = models.ImageField(upload_to='product_images/', null=True, blank=True, verbose_name=\"Image File\")\n    image_url = models.URLField(null=True, blank=True, verbose_name=\"Image URL\")\n    alt_text = models.CharField(max_length=100, blank=True, verbose_name=\"Alt Text\")\n    is_primary = models.BooleanField(default=False, verbose_name=\"Primary Image\")\n    created_at = models.DateTimeField(auto_now_add=True)\n    def save(self, *args, **kwargs):\n        if not self.image and not self.image_url:\n            raise ValidationError(\"Either image file or image URL must be provided\")",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Order",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Order(models.Model):\n    STATUS_CHOICES = (\n        ('pending', 'Pending'),\n        ('processing', 'Processing'),\n        ('shipped', 'Shipped'),\n        ('delivered', 'Delivered'),\n        ('cancelled', 'Cancelled'),\n    )\n    PAYMENT_CHOICES = (\n        ('cash_on_delivery', 'Cash on Delivery'),",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "OrderItem",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class OrderItem(models.Model):\n    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')\n    product = models.ForeignKey(Product, on_delete=models.CASCADE)\n    quantity = models.PositiveIntegerField(default=1)\n    price = models.DecimalField(max_digits=10, decimal_places=2)\n    class Meta:\n        verbose_name = \"Order Item\"\n        verbose_name_plural = \"Order Items\"\n    def __str__(self):\n        return f\"{self.quantity} x {self.product.name}\"",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "urls",
+        "description": "urls",
+        "peekOfCode": "urlpatterns = [\n    path('', views.index, name='index'),\n    path('products/', views.product_list, name='product_list'),\n    path('product/<int:product_id>/', views.product_detail, name='product_detail'),\n    path('product/<int:product_id>/add-to-cart/', views.add_to_cart, name='add_to_cart'),\n    path('contact/', views.contact, name='contact'),\n    path('cart/', views.view_cart, name='view_cart'),\n    path('cart/increase/<int:product_id>/', views.cart_increase, name='cart_increase'),\n    path('cart/decrease/<int:product_id>/', views.cart_decrease, name='cart_decrease'),\n    path('checkout/', views.checkout, name='checkout'),",
+        "detail": "urls",
+        "documentation": {}
+    },
+    {
+        "label": "SuccessView",
+        "kind": 6,
+        "importPath": "views",
+        "description": "views",
+        "peekOfCode": "class SuccessView(DetailView):\n    model = Order\n    template_name = 'store/success.html'\n    context_object_name = 'order'\n    def get_object(self):\n        return get_object_or_404(Order, id=self.kwargs['order_id'])\ndef index(request):\n    categories = Category.objects.all()\n    return render(request, 'store/index.html', {'categories': categories})\ndef product_list(request):",
+        "detail": "views",
+        "documentation": {}
+    },
+    {
+        "label": "SuccessView",
+        "kind": 6,
+        "importPath": "views",
+        "description": "views",
+        "peekOfCode": "class SuccessView(DetailView):\n    model = Order\n    template_name = 'store/success.html'\n    context_object_name = 'order'\n    def get_object(self):\n        return get_object_or_404(Order, id=self.kwargs['order_id'])",
+        "detail": "views",
+        "documentation": {}
+    },
+    {
+        "label": "index",
+        "kind": 2,
+        "importPath": "views",
+        "description": "views",
+        "peekOfCode": "def index(request):\n    categories = Category.objects.all()\n    return render(request, 'store/index.html', {'categories': categories})\ndef product_list(request):\n    category_slug = request.GET.get('category')\n    min_price = request.GET.get('min_price')\n    max_price = request.GET.get('max_price')\n    min_rating = request.GET.get('min_rating')\n    gender = request.GET.get('gender', 'all')\n    products = Product.objects.all()",
+        "detail": "views",
+        "documentation": {}
+    },
+    {
+        "label": "product_list",
+        "kind": 2,
+        "importPath": "views",
+        "description": "views",
+        "peekOfCode": "def product_list(request):\n    category_slug = request.GET.get('category')\n    min_price = request.GET.get('min_price')\n    max_price = request.GET.get('max_price')\n    min_rating = request.GET.get('min_rating')\n    gender = request.GET.get('gender', 'all')\n    products = Product.objects.all()\n    if category_slug:\n        products = products.filter(category__name=category_slug)\n    if min_price:",
+        "detail": "views",
+        "documentation": {}
+    },
+    {
+        "label": "product_detail",
+        "kind": 2,
+        "importPath": "views",
+        "description": "views",
+        "peekOfCode": "def product_detail(request, product_id):\n    product = get_object_or_404(Product, id=product_id)\n    return render(request, 'store/product_detail.html', {'product': product})\ndef add_to_cart(request, product_id):\n    product = get_object_or_404(Product, id=product_id)\n    cart = request.session.get('cart', {})\n    if str(product.id) in cart:\n        cart_quantity = cart[str(product.id)]\n    else:\n        cart_quantity = 0",
+        "detail": "views",
+        "documentation": {}
+    },
+    {
+        "label": "add_to_cart",
+        "kind": 2,
+        "importPath": "views",
+        "description": "views",
+        "peekOfCode": "def add_to_cart(request, product_id):\n    product = get_object_or_404(Product, id=product_id)\n    cart = request.session.get('cart', {})\n    if str(product.id) in cart:\n        cart_quantity = cart[str(product.id)]\n    else:\n        cart_quantity = 0\n    # التأكد من أن الكمية المطلوبة لا تتجاوز المتوفر\n    if cart_quantity + 1 > product.quantity:\n        messages.error(request, f\"عذرًا، لا يوجد كمية كافية من {product.name}\")",
+        "detail": "views",
+        "documentation": {}
+    },
+    {
+        "label": "cart_increase",
+        "kind": 2,
+        "importPath": "views",
+        "description": "views",
+        "peekOfCode": "def cart_increase(request, product_id):\n    product = get_object_or_404(Product, id=product_id)\n    cart = request.session.get('cart', {})\n    current_quantity = cart.get(str(product.id), 0)\n    if current_quantity < product.quantity:\n        cart[str(product.id)] = current_quantity + 1\n        messages.success(request, f\"تم زيادة عدد {product.name}\")\n    else:\n        messages.error(request, f\"لا يمكن زيادة العدد، لا يوجد رصيد كافٍ من {product.name}\")\n    request.session['cart'] = cart",
+        "detail": "views",
+        "documentation": {}
+    },
+    {
+        "label": "cart_decrease",
+        "kind": 2,
+        "importPath": "views",
+        "description": "views",
+        "peekOfCode": "def cart_decrease(request, product_id):\n    product = get_object_or_404(Product, id=product_id)\n    cart = request.session.get('cart', {})\n    current_quantity = cart.get(str(product.id), 0)\n    if current_quantity > 1:\n        cart[str(product.id)] = current_quantity - 1\n        messages.info(request, f\"تم تقليل عدد {product.name}\")\n    else:\n        del cart[str(product.id)]\n        messages.info(request, f\"تم إزالة {product.name} من العربة\")",
+        "detail": "views",
+        "documentation": {}
+    },
+    {
+        "label": "contact",
+        "kind": 2,
+        "importPath": "views",
+        "description": "views",
+        "peekOfCode": "def contact(request):\n    if request.method == 'POST':\n        name = request.POST.get('name')\n        email = request.POST.get('email')\n        message = request.POST.get('message')\n        # يمكنك هنا إرسال البريد أو حفظه\n        return render(request, 'store/contact_success.html')\n    return render(request, 'store/contact.html')\ndef subscribe(request):\n    if request.method == 'POST':",
+        "detail": "views",
+        "documentation": {}
+    },
+    {
+        "label": "subscribe",
+        "kind": 2,
+        "importPath": "views",
+        "description": "views",
+        "peekOfCode": "def subscribe(request):\n    if request.method == 'POST':\n        email = request.POST.get('email')\n        if not email:\n            messages.error(request, 'الرجاء إدخال بريد إلكتروني صحيح.')\n            return redirect('index')\n        subject = 'شكرًا على الاشتراك في نشرتنا البريدية'\n        message = 'شكرًا لك على الاشتراك في نشرتنا البريدية. سنقوم بإعلامك بأحدث المنتجات والعروض.'\n        email_from = settings.EMAIL_HOST_USER\n        recipient_list = [email]",
+        "detail": "views",
+        "documentation": {}
+    },
+    {
+        "label": "view_cart",
+        "kind": 2,
+        "importPath": "views",
+        "description": "views",
+        "peekOfCode": "def view_cart(request):\n    cart = request.session.get('cart', {})\n    product_ids = cart.keys()\n    if not product_ids:\n        return render(request, 'store/cart.html', {\n            'cart_items': [],\n            'total_price': 0\n        })\n    products = Product.objects.filter(id__in=product_ids)\n    cart_items = []",
+        "detail": "views",
+        "documentation": {}
+    },
+    {
+        "label": "checkout",
+        "kind": 2,
+        "importPath": "views",
+        "description": "views",
+        "peekOfCode": "def checkout(request):\n    cart = request.session.get('cart', {})\n    product_ids = cart.keys()\n    if not product_ids:\n        messages.error(request, \"Your cart is empty. Please add items before checkout.\")\n        return redirect('view_cart')\n    products = Product.objects.filter(id__in=product_ids)\n    cart_items = []\n    total_price = 0\n    for product in products:",
+        "detail": "views",
+        "documentation": {}
+    }
+]

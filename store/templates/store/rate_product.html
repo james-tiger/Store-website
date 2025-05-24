@@ -1,0 +1,310 @@
+{% extends "store/base.html" %}
+{% block title %}Product Rating | Swag{% endblock %}
+{% block content %}
+<div class="rating-container">
+
+
+    <div class="checkout-steps">
+        <div class="step" data-step="1">
+            <span class="step-number">1</span>
+            Shipping
+        </div>
+        <div class="step" data-step="2">
+            <span class="step-number">2</span>
+            Payment
+        </div>
+        <div class="step active" data-step="3">
+            <span class="step-number">3</span>
+            Rating
+        </div>
+    </div>
+
+    <div class="rating-details">
+        <h2 class="section-title">Product Ratings</h2>
+        <p class="rating-intro">Thank you for your purchase! Please rate the products you bought to help other customers.</p>
+        
+        <div class="order-summary">
+            <h3>Order Summary #{{ order.id }}</h3>
+            <p>Order Date: {{ order.created_at|date:"d/m/Y" }}</p>
+            <p>Total Amount: {{ order.total_amount }} EGP</p>
+        </div>
+        
+        <div class="product-ratings">
+            {% for item in order.items.all %}
+            <div class="product-rating-card">
+                <div class="product-info">
+                    {% if item.product.images.all %}
+                    <div class="product-image">
+                        {% if item.product.images.all.0.image %}
+                        <img src="{{ item.product.images.all.0.image.url }}" alt="{{ item.product.name }}">
+                        {% else %}
+                        <img src="{{ item.product.images.all.0.image_url }}" alt="{{ item.product.name }}">
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    <div class="product-details">
+                        <h4>{{ item.product.name }}</h4>
+                        <p>Quantity: {{ item.quantity }}</p>
+                        {% if item.size %}<p>Size: {{ item.size }}</p>{% endif %}
+                        {% if item.color %}<p>Color: {{ item.color }}</p>{% endif %}
+                    </div>
+                </div>
+                
+                <form method="POST" action="{% url 'store:rate_product' order.id item.product.id %}" class="rating-form">
+                    {% csrf_token %}
+                    <div class="rating-stars">
+                        <p>Your Rating:</p>
+                        <div class="stars-input">
+                            <input type="radio" id="star5-{{ item.product.id }}" name="rating" value="5" required>
+                            <label for="star5-{{ item.product.id }}">★</label>
+                            <input type="radio" id="star4-{{ item.product.id }}" name="rating" value="4">
+                            <label for="star4-{{ item.product.id }}">★</label>
+                            <input type="radio" id="star3-{{ item.product.id }}" name="rating" value="3">
+                            <label for="star3-{{ item.product.id }}">★</label>
+                            <input type="radio" id="star2-{{ item.product.id }}" name="rating" value="2">
+                            <label for="star2-{{ item.product.id }}">★</label>
+                            <input type="radio" id="star1-{{ item.product.id }}" name="rating" value="1">
+                            <label for="star1-{{ item.product.id }}">★</label>
+                        </div>
+                    </div>
+                    
+                    <div class="comment-input">
+                        <label for="comment-{{ item.product.id }}">Your Comment (Optional):</label>
+                        <textarea id="comment-{{ item.product.id }}" name="comment" rows="3" placeholder="Write your comment here..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-rating-btn">Submit Rating</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="rating-actions">
+            <a href="/" class="continue-shopping-btn">Back to Shopping</a>
+        </div>
+    </div>
+</div>
+
+<style>
+.rating-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.checkout-steps {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+}
+
+.step {
+    flex: 1;
+    text-align: center;
+    padding: 1rem;
+    position: relative;
+    color: #999;
+}
+
+.step:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #eee;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+}
+
+.step.active {
+    color: #000;
+}
+
+.step-number {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: #eee;
+    border-radius: 50%;
+    margin: 0 auto 0.5rem;
+    line-height: 30px;
+}
+
+.step.active .step-number {
+    background: #000;
+    color: white;
+}
+
+.rating-details {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.rating-intro {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.order-summary {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+}
+
+.order-summary h3 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.product-ratings {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.product-rating-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.product-info {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.product-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-details h4 {
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.product-details p {
+    margin-bottom: 3px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.rating-form {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.rating-stars {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.stars-input {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.stars-input input {
+    display: none;
+}
+
+.stars-input label {
+    font-size: 1.5rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.stars-input label:hover,
+.stars-input label:hover ~ label,
+.stars-input input:checked ~ label {
+    color: #ffb700;
+}
+
+.comment-input {
+    margin-bottom: 15px;
+}
+
+.comment-input label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.comment-input textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.submit-rating-btn {
+    background-color: #000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.submit-rating-btn:hover {
+    background-color: #333;
+}
+
+.rating-actions {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.continue-shopping-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #000;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.continue-shopping-btn:hover {
+    background-color: #333;
+}
+
+@media (max-width: 768px) {
+    .product-info {
+        flex-direction: column;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 150px;
+    }
+}
+</style>
+{% endblock %}
